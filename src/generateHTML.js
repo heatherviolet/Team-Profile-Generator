@@ -11,3 +11,5 @@ return `
 </section>
 `;
 };
+
+module.exports = generateHTML;
