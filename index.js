@@ -1,7 +1,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-const generateTeam = require("./src/generateHTML");
+const generateHTML = require("./src/generateHTML");
 
 // questions array 
 
@@ -147,7 +147,7 @@ function init() {
     inquirer.prompt(questions)
         .then(function (userInput) {
             console.log(userInput)
-            writeToFile("index", generateTeam(userInput));
+            writeToFile("index", generateHTML(userInput));
         });
 };
 
