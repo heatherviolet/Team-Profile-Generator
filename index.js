@@ -67,15 +67,15 @@ const managerQuestions = () => {
                 }
             },
         ])
-        .then(managerInput => {
-            const { name, id, email, office } = managerInput;
-            const manager = new Manager(name, id, email, office);
+        // .then(managerInput => {
+        //     const { name, id, email, office } = managerInput;
+        //     const manager = new Manager(name, id, email, office);
 
-            teamArr.push(manager);
-        })
+        //     teamArr.push(manager);
+        // })
 };
 
-const employeeQuestions = employeeData => {
+const employeeQuestions = () => {
     return inquirer
         .prompt([
 
@@ -158,6 +158,14 @@ const employeeQuestions = employeeData => {
                 message: 'Would you like to add another intern or engineer?'
             }
         ])
+
+        // create a new engineer or a new intern and pull all the answers out and put in nrew employee/intern
+        // after created push new employee onto team array
+        // check if they want to add another employee
+        // if they do then call employee questions (like in manager questions)
+        // if they don't then create the HTML file and then pass team array in generateteam
+        // will be returned html in string
+        // write file with returned string 
         .then(employeeAnswers => {
             employeeData.push(employeeAnswers);
             if (employeeAnswers.add) {
@@ -184,15 +192,18 @@ const employeeQuestions = employeeData => {
 
     function init() {
         managerQuestions (teamArr)
-        .then(function (userInput) {
-            console.log(userInput)
-            writeFile("index.html", generateHTML(userInput));
-        });
-        employeeQuestions(teamArr)
-        .then(function (userInput) {
-            console.log(userInput)
-            writeFile("index.html", generateHTML(userInput));
-        });
+        .then(managerInput => {
+            const { name, id, email, office } = managerInput;
+            const manager = new Manager(name, id, email, office);
+
+            teamArr.push(manager);
+            employeeQuestions()
+            // (function (userInput) {
+            // console.log(userInput)
+            // writeFile("index.html", generateHTML(userInput));
+         
+        // })
+       });  
     };
     // calls fucntion
     init();

@@ -61,7 +61,7 @@ generateHTML = (data) => {
     for (let i = 0; i < data.length; i++) {
     // check if data [i].employee is a manager then 
         const employee = data[i];
-        const type = employee.getRole();
+
     
     if (role === 'Manager') {
         const createMCard = managerCard(employee);
