@@ -45,7 +45,7 @@ return `
     </div>
         <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${engineer.getId}</li>
+          <li class="list-group-item">ID: ${engineer.id}</li>
           <li class="list-group-item">Email: ${engineer.email}</li>
           <li class="list-group-item">GitHub: ${engineer.github}</li>
         </ul>
