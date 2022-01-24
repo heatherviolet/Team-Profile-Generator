@@ -7,10 +7,10 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
+
 const teamArr = [];
 
 // manager questions array 
-
 const managerQuestions = () => {
     return inquirer
         .prompt([
@@ -81,7 +81,7 @@ const employeeQuestions = employeeData => {
 
             {
                 type: 'list',
-                name: 'employee',
+                name: 'role',
                 message: 'Would you like to add an Intern or Engineer?',
                 choices: ['Intern', 'Engineer']
             },
@@ -158,8 +158,9 @@ const employeeQuestions = employeeData => {
                 message: 'Would you like to add another intern or engineer?'
             }
         ])
-        .then(employeeData => {
-            if (employeeData.add) {
+        .then(employeeAnswers => {
+            employeeData.push(employeeAnswers);
+            if (employeeAnswers.add) {
                 return employeeQuestions(employeeData);
             } else {
                 return employeeData;
@@ -167,14 +168,8 @@ const employeeQuestions = employeeData => {
         });
     };
 
-   
     // writes to HTML file
-    managerQuestions()
-    .then(employeeQuestions)
-    .then(employeeData => {
-        return generateHTML(employeeData);
-    })
-    .then()
+
     const writeFile = data => {
         fs.writeFile('./dist/index.html', data, (err) => {
             if (err) {
@@ -184,12 +179,22 @@ const employeeQuestions = employeeData => {
         });
     };
 
-   const writeToFile = questions => {
-        inquirer.prompt(managerQuestions)
-            .then(function (data) {
-            console.log(data)
-            writeToFile("index", generateHTML(data));
+ 
+    // function to start app
+
+    function init() {
+        managerQuestions (teamArr)
+        .then(function (userInput) {
+            console.log(userInput)
+            writeFile("index.html", generateHTML(userInput));
         });
-   };
-    // function to start questions
- //   init();
+        employeeQuestions(teamArr)
+        .then(function (userInput) {
+            console.log(userInput)
+            writeFile("index.html", generateHTML(userInput));
+        });
+    };
+    // calls fucntion
+    init();
+     
+ 

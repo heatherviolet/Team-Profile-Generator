@@ -4,15 +4,15 @@ const managerCard = manager => {
 return `
 <div class="card" style="width: 18rem;">
     <div class="col card-header">
-        <h4>${manager.name}</h4>
+        <h4>${manager.getName}</h4>
     <div class="card-body">
       <h4 class="card-title">Manager</h4>
     </div>
         <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${manager.id}</li>
-          <li class="list-group-item">Email: ${manager.email}</li>
-          <li class="list-group-item">Office Number: ${manager.office}</li>
+          <li class="list-group-item">ID: ${manager.getId}</li>
+          <li class="list-group-item">Email: ${manager.getEmail}</li>
+          <li class="list-group-item">Office Number: ${manager.getOffice}</li>
         </ul>
   </div>
   `}
@@ -22,15 +22,15 @@ return `
       return `
   <div class="card" style="width: 18rem;">
     <div class="col card-header">
-        <h4>${intern.name}</h4>
+        <h4>${intern.getName}</h4>
     <div class="card-body">
       <h4 class="card-title">Intern</h4>
     </div>
         <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${intern.id}</li>
-          <li class="list-group-item">Email: ${intern.email}</li>
-          <li class="list-group-item">School: ${intern.school}</li>
+          <li class="list-group-item">ID: ${intern.getId}</li>
+          <li class="list-group-item">Email: ${intern.getEmail}</li>
+          <li class="list-group-item">School: ${intern.getSchool}</li>
         </ul>
   </div>
   `}
@@ -39,26 +39,53 @@ return `
       return `
   <div class="card" style="width: 18rem;">
     <div class="col card-header">
-        <h4>${engineer.name}</h4>
+        <h4>${engineer.getName}</h4>
     <div class="card-body">
       <h4 class="card-title">Engineer</h4>
     </div>
         <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${engineer.id}</li>
-          <li class="list-group-item">Email: ${engineer.email}</li>
-          <li class="list-group-item">GitHub: ${engineer.github}</li>
+          <li class="list-group-item">ID: ${engineer.getId}</li>
+          <li class="list-group-item">Email: ${engineer.getEmail}</li>
+          <li class="list-group-item">GitHub: ${engineer.getGithub}</li>
         </ul>
   </div>
 `;
 };
 
-function generateHTML(data) {
+// array to generate page
+generateHTML = (data) => {
+    // empty HTML string
+    const htmlString = [];
+    // for loop that loops through the length of data
+    for (let i = 0; i < data.length; i++) {
+    // check if data [i].employee is a manager then 
+        const employee = data[i];
+        const type = employee.getRole();
+    
+    if (role === 'Manager') {
+        const createMCard = managerCard(employee);
+
+        htmlString.push(createMCard);
+    }
+
+    if (role === 'Intern') {
+        const createICard = internCard(employee);
+    
+        htmlString.push(createICard);
+    }
+    if (role === 'Engineer') {
+        const createECard = engineerCard(employee);
+
+        htmlString.push(createECard);
+    }
+    
     return `
-    ${managerCard(data.manager)}
+    ${managerCard(data.manager)} 
     ${internCard(data.intern)}
     ${engineerCard(data.engineer)}
 `;
+}
 }
 
 module.exports = generateHTML;
