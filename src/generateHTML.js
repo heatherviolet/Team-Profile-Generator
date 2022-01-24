@@ -1,3 +1,5 @@
+
+// creates manager card HTML
 const managerCard = manager => {
 return `
 <div class="card" style="width: 18rem;">
@@ -15,6 +17,7 @@ return `
   </div>
   `}
 
+  // creates intern card HTML
   const internCard = intern => {
       return `
   <div class="card" style="width: 18rem;">
@@ -42,7 +45,7 @@ return `
     </div>
         <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${engineer.id}</li>
+          <li class="list-group-item">ID: ${engineer.getId}</li>
           <li class="list-group-item">Email: ${engineer.email}</li>
           <li class="list-group-item">GitHub: ${engineer.github}</li>
         </ul>
@@ -50,7 +53,12 @@ return `
 `;
 };
 
-const generateHTML = questions => {
-
+function generateHTML(data) {
+    return `
+    ${managerCard(data.manager)}
+    ${internCard(data.intern)}
+    ${engineerCard(data.engineer)}
+`;
 }
+
 module.exports = generateHTML;
